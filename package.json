@@ -1,0 +1,11 @@
+{
+  "name": "blogs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:armdong/blogs.git",
+  "author": "armdong <armdong@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "docs": "docsify serve docs"
+  }
+}
