@@ -529,18 +529,192 @@
 
 - ## DOM Manipulation
 
-- ## Ajax
+  - ### Remove Element
 
-- ## Events
+  > 从 DOM 中移出元素
 
-- ## Utilities
+  ```javascript
+  el.parentNode.removeChild(el);
+  ```
 
-- ## Promises
+  - ### Get/Set Element's Text
 
-- ## Animation
+    - #### Get Element's Text
 
-- ## Alternatives
+    > 返回指定元素的文本内容。
 
-- ## Browser Support
+    ```javascript
+    el.textContent;
+    ```
+
+    - #### Set Element's Text
+
+    > 设置指定元素的文本内容。
+
+    ```javascript
+    el.textContent = string;
+    ```
+
+  - ### Get/Set Element's HTML
+
+    - #### Get Element's HTML
+
+    > 获取指定元素的 HTML 内容。
+
+    ```javascript
+    el.innerHTML;
+    ```
+
+    - #### Set Element's HTML
+
+    > 设置指定元素的 HTML 内容。
+
+    ```javascript
+    el.innerHTML = htmlString;
+    ```
+
+  - ### Append Element
+
+  > Append 插入到子节点的末尾
+
+  ```javascript
+  // Native (HTML string)
+  el.insertAdjacentHTML('beforeend', '<div id="container">Hello world</div>');
+
+  // Native (Element)
+  el.appendChild(newEl);
+  ```
+
+  - ### Prepend Element
+
+  ```javascript
+  // Native (HTML string)
+  el.insertAdjacentHTML('afterbegin', '<div id="container">Hello world</div>');
+
+  // Native (Element)
+  el.insertBefore(newEl, el.firstChild);
+  ```
+
+  - ### insertBefore
+
+  > 在指定元素前插入新节点
+
+  ```javascript
+  // Native (HTML string)
+  el.insertAdjacentHTML('beforebegin', '<div id="container">Hello world</div>');
+
+  // Native (Element)
+  const el = document.querySelector(selector);
+  if (el.parentNode) {
+    el.parentNode.insertBefore(newEl, el);
+  }
+  ```
+
+  - ### insertAfter
+
+  > 在指定元素后插入新节点
+
+  ```javascript
+  // Native (HTML string)
+  el.insertAdjacentHTML('afterend', '<div id="container">Hello world</div>');
+
+  // Native (Element)
+  const el = document.querySelector(selector);
+  if (el.parentNode) {
+    el.parentNode.insertBefore(newEl, el.nextSibling);
+  }
+  ```
+
+  - ### is
+
+  > 如果匹配给定的选择器，返回 true
+
+  ```javascript
+  el.matches(selector);
+  ```
+
+  - ### clone
+
+  > 拷贝被选元素。（生成被选元素的副本，包含子节点、文本和属性。）
+
+  ```javascript
+  el.cloneNode();
+
+  // 深拷贝添加参数 true
+  el.cloneNode(true);
+  ```
+
+  - ### empty
+
+  > 移除所有子节点
+
+  ```javascript
+  el.innerHTML = '';
+  ```
+
+  - ### wrap/unwrap
+
+    - #### wrap
+
+    > 把每个被选元素放置在指定的 HTML 结构中。
+
+    ```javascript
+    Array.prototype.forEach.call(document.querySelectorAll('.inner'), el => {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('wrapper');
+      el.parentNode.insertBefore(wrapper, el);
+      el.parentNode.removeChild(el);
+      wrapper.appendChild(el);
+    });
+    ```
+
+    - #### unwrap
+
+    > 把被选元素的父元素移除 DOM 结构。
+
+    ```javascript
+    Array.prototype.forEach.call(document.querySelectorAll('.inner'), el => {
+      Array.prototype.forEach.call(el.childNodes, child => {
+        el.parentNode.insertBefore(child, el);
+      });
+      el.parentNode.removeChild(el);
+    });
+    ```
+
+  - ### replaceWith
+
+  > 用指定的元素替换被选的元素
+
+  ```javascript
+  Array.prototype.forEach.call(document.querySelectorAll('.inner'), el => {
+    const outer = document.createElement('div');
+    outer.classList.add('outer');
+    el.parentNode.insertBefore(outer, el);
+    el.parentNode.removeChild(el);
+  });
+  ```
+
+  - ### simple parse
+
+  > 解析 HTML/SVG/XML 字符串
+
+  ```javascript
+  const range = document.createRange();
+  const parse = range.createContextualFragment.bind(range);
+
+  parse(`
+    <ol>
+      <li>a</li>
+      <li>b</li>
+    </ol>
+    <ol>
+      <li>c</li>
+      <li>d</li>
+    </ol>
+  `);
+  ```
 
 - ## Polyfills
+  - [Underscore.js](http://underscorejs.org/)
+  - [Lodash](https://github.com/lodash/lodash)
+  - [oui-dom-utils](https://github.com/oneuijs/oui-dom-utils)
